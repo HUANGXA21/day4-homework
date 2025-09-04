@@ -12,7 +12,7 @@ public class WordFrequencyGame {
         } else {
             try {
                 //split the input string with 1 to n pieces of spaces
-                List<Input> frequencies = countFrequencies(words);
+                List<InputFrequency> frequencies = countFrequencies(words);
                 return composeOutput(frequencies);
             } catch (Exception e) {
                 return "Calculate Error";
@@ -20,21 +20,21 @@ public class WordFrequencyGame {
         }
     }
 
-    private static String composeOutput(List<Input> frequencies) {
+    private static String composeOutput(List<InputFrequency> frequencies) {
         frequencies.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
         StringJoiner result = new StringJoiner("\n");
-        for (Input w : frequencies) {
+        for (InputFrequency w : frequencies) {
             String s = w.getValue() + " " + w.getWordCount();
             result.add(s);
         }
         return result.toString();
     }
 
-    private List<Input> countFrequencies(String[] words) {
+    private List<InputFrequency> countFrequencies(String[] words) {
         Map<String, List<String>> groups = groupSameWords(words);
-        List<Input> frequencies = new ArrayList<>(groups.size()); // 预先指定容量
+        List<InputFrequency> frequencies = new ArrayList<>(groups.size()); // 预先指定容量
         // 直接通过每组的列表大小获取计数
-        groups.forEach((word, group) -> frequencies.add(new Input(word, group.size())));
+        groups.forEach((word, group) -> frequencies.add(new InputFrequency(word, group.size())));
         return frequencies;
     }
 
