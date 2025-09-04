@@ -32,11 +32,9 @@ public class WordFrequencyGame {
 
     private List<Input> countFrequencies(String[] words) {
         Map<String, List<String>> groups = groupSameWords(words);
-        List<Input> frequencies = new ArrayList<>();
-        for (Map.Entry<String, List<String>> entry : groups.entrySet()) {
-            Input input = new Input(entry.getKey(), entry.getValue().size());
-            frequencies.add(input);
-        }
+        List<Input> frequencies = new ArrayList<>(groups.size()); // 预先指定容量
+        // 直接通过每组的列表大小获取计数
+        groups.forEach((word, group) -> frequencies.add(new Input(word, group.size())));
         return frequencies;
     }
 
