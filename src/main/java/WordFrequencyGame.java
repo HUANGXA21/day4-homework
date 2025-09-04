@@ -45,7 +45,7 @@ public class WordFrequencyGame {
         for (String input : inputList) {
 //       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
             if (!groups.containsKey(input)) {
-                ArrayList arr = new ArrayList<>();
+                List<String> arr = new ArrayList<>();
                 arr.add(input);
                 groups.put(input, arr);
             } else {
