@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class WordFrequencyGame {
@@ -21,13 +22,13 @@ public class WordFrequencyGame {
     }
 
     private static String composeOutput(List<InputFrequency> frequencies) {
-        frequencies.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
-        StringJoiner result = new StringJoiner("\n");
-        for (InputFrequency w : frequencies) {
-            String s = w.getValue() + " " + w.getWordCount();
-            result.add(s);
-        }
-        return result.toString();
+        return frequencies.stream()
+                // 按词频降序排序
+                .sorted((w1, w2) -> Integer.compare(w2.getWordCount(), w1.getWordCount()))
+                // 转换为"单词 次数"格式的字符串
+                .map(w -> w.getValue() + " " + w.getWordCount())
+                // 用换行符连接所有字符串
+                .collect(Collectors.joining("\n"));
     }
 
     private List<InputFrequency> countFrequencies(String[] words) {
